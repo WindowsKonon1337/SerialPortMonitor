@@ -10,7 +10,7 @@ using System.Threading;
 using System.Windows.Forms;
 using System.IO.Ports;
 
-namespace Keen_Eye
+namespace ASPM
 {
     public partial class Form1 : System.Windows.Forms.Form
     {
