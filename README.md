@@ -4,7 +4,7 @@ Download .exe: https://drive.google.com/file/d/1uqSZg_CvtxR-uDTfPpp8T3ukWyh-9sNA
 
 ## Change log:
 
-v 1.0.0
+v 1.0.1
 Added desktop icon
 
 v 1.0.0 Release:
