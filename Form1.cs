@@ -31,7 +31,7 @@ namespace ASPM
 
         bool IsBlack = false;
 
-        private List<string> GetAvaliablePorts() =>
+        private List<string> GetAvaliablePorts() => 
             SerialPort.GetPortNames().ToList();
 
         public Form1()
