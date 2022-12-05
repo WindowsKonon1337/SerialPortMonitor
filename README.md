@@ -4,6 +4,9 @@ Download .exe: https://drive.google.com/file/d/1uqSZg_CvtxR-uDTfPpp8T3ukWyh-9sNA
 
 ## Change log:
 
+v 1.1.0
+Added Windows setup wizard
+
 v 1.0.1
 Added desktop icon
 
