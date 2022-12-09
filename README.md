@@ -1,8 +1,11 @@
 # Open Source Serial Port Monitor
 
-Download .exe: https://drive.google.com/file/d/1uqSZg_CvtxR-uDTfPpp8T3ukWyh-9sNA/view
+Download Setup Wizard(Windows x86): https://drive.google.com/file/d/1uqSZg_CvtxR-uDTfPpp8T3ukWyh-9sNA/view
 
 ## Change log:
+
+v 1.1.0
+Added Windows setup wizard
 
 v 1.0.1
 Added desktop icon
