@@ -60,7 +60,9 @@ namespace ASPM
 
             StopBitsBox.SelectedIndex = 1;
 
+            this.MaximizeBox = false;
 
+            this.FormBorderStyle = FormBorderStyle.FixedSingle;
         }
 
         private void Form1_FormClosed(object sender, FormClosedEventArgs e)
@@ -304,5 +306,11 @@ namespace ASPM
                 File.WriteAllText(saveFileDialog1.FileName, SerialOutput.Text);
         }
         #endregion
+
+        private void CommandString_KeyPress(object sender, KeyPressEventArgs e)
+        {
+           if (e.KeyChar == '\r')
+                SendBtn_Click(sender, e);
+        }
     }
 }
