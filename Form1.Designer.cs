@@ -41,8 +41,6 @@
             this.label5 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.OpenBtn = new System.Windows.Forms.Button();
-            this.CloseBtn = new System.Windows.Forms.Button();
-            this.SaveBtn = new System.Windows.Forms.Button();
             this.COMbox = new System.Windows.Forms.ComboBox();
             this.BaudRateBox = new System.Windows.Forms.ComboBox();
             this.ParityBox = new System.Windows.Forms.ComboBox();
@@ -68,10 +66,18 @@
             this.toolStripMenuItem9 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem10 = new System.Windows.Forms.ToolStripMenuItem();
             this.languageWIPToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.EditBtn = new System.Windows.Forms.Button();
             this.Day_Nignt_Btn = new System.Windows.Forms.Button();
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
+            this.StringRadioButton = new System.Windows.Forms.RadioButton();
+            this.HexRadioButton = new System.Windows.Forms.RadioButton();
+            this.label7 = new System.Windows.Forms.Label();
+            this.LoopNumeric = new System.Windows.Forms.NumericUpDown();
+            this.label8 = new System.Windows.Forms.Label();
+            this.LoopButton = new System.Windows.Forms.Button();
+            this.outputToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.clearOutputWindowToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.LoopNumeric)).BeginInit();
             this.SuspendLayout();
             // 
             // serialPort1
@@ -85,25 +91,27 @@
             this.SerialOutput.Name = "SerialOutput";
             this.SerialOutput.ReadOnly = true;
             this.SerialOutput.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.Vertical;
-            this.SerialOutput.Size = new System.Drawing.Size(624, 227);
+            this.SerialOutput.Size = new System.Drawing.Size(755, 227);
             this.SerialOutput.TabIndex = 1;
             this.SerialOutput.Text = "";
             // 
             // CommandString
             // 
+            this.CommandString.Cursor = System.Windows.Forms.Cursors.IBeam;
             this.CommandString.Enabled = false;
-            this.CommandString.Location = new System.Drawing.Point(12, 344);
+            this.CommandString.Location = new System.Drawing.Point(12, 419);
             this.CommandString.Name = "CommandString";
-            this.CommandString.Size = new System.Drawing.Size(498, 20);
+            this.CommandString.Size = new System.Drawing.Size(604, 20);
             this.CommandString.TabIndex = 3;
             this.CommandString.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.CommandString_KeyPress);
+            this.CommandString.KeyUp += new System.Windows.Forms.KeyEventHandler(this.CommandString_KeyUp);
             // 
             // SendBtn
             // 
             this.SendBtn.Enabled = false;
-            this.SendBtn.Location = new System.Drawing.Point(516, 341);
+            this.SendBtn.Location = new System.Drawing.Point(642, 416);
             this.SendBtn.Name = "SendBtn";
-            this.SendBtn.Size = new System.Drawing.Size(130, 23);
+            this.SendBtn.Size = new System.Drawing.Size(125, 23);
             this.SendBtn.TabIndex = 4;
             this.SendBtn.Text = "send";
             this.SendBtn.UseVisualStyleBackColor = true;
@@ -112,7 +120,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(12, 270);
+            this.label1.Location = new System.Drawing.Point(9, 289);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(53, 13);
             this.label1.TabIndex = 5;
@@ -121,7 +129,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(116, 270);
+            this.label2.Location = new System.Drawing.Point(7, 329);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(55, 13);
             this.label2.TabIndex = 7;
@@ -130,7 +138,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(217, 270);
+            this.label3.Location = new System.Drawing.Point(232, 289);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(33, 13);
             this.label3.TabIndex = 9;
@@ -139,7 +147,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(324, 270);
+            this.label4.Location = new System.Drawing.Point(217, 326);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(49, 13);
             this.label4.TabIndex = 11;
@@ -148,7 +156,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(425, 270);
+            this.label5.Location = new System.Drawing.Point(420, 289);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(48, 13);
             this.label5.TabIndex = 13;
@@ -157,7 +165,7 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(12, 328);
+            this.label6.Location = new System.Drawing.Point(12, 403);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(54, 13);
             this.label6.TabIndex = 14;
@@ -165,80 +173,63 @@
             // 
             // OpenBtn
             // 
-            this.OpenBtn.Enabled = false;
-            this.OpenBtn.Location = new System.Drawing.Point(642, 231);
+            this.OpenBtn.Location = new System.Drawing.Point(641, 286);
             this.OpenBtn.Name = "OpenBtn";
-            this.OpenBtn.Size = new System.Drawing.Size(126, 23);
+            this.OpenBtn.Size = new System.Drawing.Size(126, 61);
             this.OpenBtn.TabIndex = 15;
             this.OpenBtn.Text = "Open port";
             this.OpenBtn.UseVisualStyleBackColor = true;
             this.OpenBtn.Click += new System.EventHandler(this.OpenBtn_Click);
             // 
-            // CloseBtn
-            // 
-            this.CloseBtn.Enabled = false;
-            this.CloseBtn.Location = new System.Drawing.Point(642, 169);
-            this.CloseBtn.Name = "CloseBtn";
-            this.CloseBtn.Size = new System.Drawing.Size(126, 23);
-            this.CloseBtn.TabIndex = 16;
-            this.CloseBtn.Text = "Close port";
-            this.CloseBtn.UseVisualStyleBackColor = true;
-            this.CloseBtn.Click += new System.EventHandler(this.CloseBtn_Click);
-            // 
-            // SaveBtn
-            // 
-            this.SaveBtn.Location = new System.Drawing.Point(642, 27);
-            this.SaveBtn.Name = "SaveBtn";
-            this.SaveBtn.Size = new System.Drawing.Size(126, 23);
-            this.SaveBtn.TabIndex = 18;
-            this.SaveBtn.Text = "Save parameters";
-            this.SaveBtn.UseVisualStyleBackColor = true;
-            this.SaveBtn.Click += new System.EventHandler(this.SaveBtn_Click);
-            // 
             // COMbox
             // 
+            this.COMbox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.COMbox.FormattingEnabled = true;
-            this.COMbox.Location = new System.Drawing.Point(12, 286);
+            this.COMbox.Location = new System.Drawing.Point(68, 286);
             this.COMbox.Name = "COMbox";
-            this.COMbox.Size = new System.Drawing.Size(98, 21);
+            this.COMbox.Size = new System.Drawing.Size(143, 21);
             this.COMbox.TabIndex = 19;
             // 
             // BaudRateBox
             // 
+            this.BaudRateBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.BaudRateBox.FormattingEnabled = true;
-            this.BaudRateBox.Location = new System.Drawing.Point(116, 286);
+            this.BaudRateBox.Location = new System.Drawing.Point(68, 326);
             this.BaudRateBox.Name = "BaudRateBox";
-            this.BaudRateBox.Size = new System.Drawing.Size(98, 21);
+            this.BaudRateBox.Size = new System.Drawing.Size(143, 21);
             this.BaudRateBox.TabIndex = 20;
             // 
             // ParityBox
             // 
+            this.ParityBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.ParityBox.FormattingEnabled = true;
-            this.ParityBox.Location = new System.Drawing.Point(220, 286);
+            this.ParityBox.Location = new System.Drawing.Point(271, 286);
             this.ParityBox.Name = "ParityBox";
-            this.ParityBox.Size = new System.Drawing.Size(98, 21);
+            this.ParityBox.Size = new System.Drawing.Size(143, 21);
             this.ParityBox.TabIndex = 21;
             // 
             // DataBitsBox
             // 
+            this.DataBitsBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.DataBitsBox.FormattingEnabled = true;
-            this.DataBitsBox.Location = new System.Drawing.Point(324, 286);
+            this.DataBitsBox.Location = new System.Drawing.Point(272, 323);
             this.DataBitsBox.Name = "DataBitsBox";
-            this.DataBitsBox.Size = new System.Drawing.Size(98, 21);
+            this.DataBitsBox.Size = new System.Drawing.Size(142, 21);
             this.DataBitsBox.TabIndex = 22;
             // 
             // StopBitsBox
             // 
+            this.StopBitsBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.StopBitsBox.FormattingEnabled = true;
-            this.StopBitsBox.Location = new System.Drawing.Point(428, 286);
+            this.StopBitsBox.Location = new System.Drawing.Point(474, 286);
             this.StopBitsBox.Name = "StopBitsBox";
-            this.StopBitsBox.Size = new System.Drawing.Size(98, 21);
+            this.StopBitsBox.Size = new System.Drawing.Size(142, 21);
             this.StopBitsBox.TabIndex = 23;
             // 
             // ShowSentCommCheckBox
             // 
             this.ShowSentCommCheckBox.AutoSize = true;
-            this.ShowSentCommCheckBox.Location = new System.Drawing.Point(516, 323);
+            this.ShowSentCommCheckBox.Location = new System.Drawing.Point(637, 393);
             this.ShowSentCommCheckBox.Name = "ShowSentCommCheckBox";
             this.ShowSentCommCheckBox.Size = new System.Drawing.Size(130, 17);
             this.ShowSentCommCheckBox.TabIndex = 24;
@@ -249,10 +240,11 @@
             // 
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.helloToolStripMenuItem,
-            this.settingsToolStripMenuItem});
+            this.settingsToolStripMenuItem,
+            this.outputToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(780, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(779, 24);
             this.menuStrip1.TabIndex = 25;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -397,20 +389,9 @@
             this.languageWIPToolStripMenuItem.Size = new System.Drawing.Size(155, 22);
             this.languageWIPToolStripMenuItem.Text = "Language(WIP)";
             // 
-            // EditBtn
-            // 
-            this.EditBtn.Enabled = false;
-            this.EditBtn.Location = new System.Drawing.Point(642, 98);
-            this.EditBtn.Name = "EditBtn";
-            this.EditBtn.Size = new System.Drawing.Size(126, 23);
-            this.EditBtn.TabIndex = 17;
-            this.EditBtn.Text = "Edit parameters";
-            this.EditBtn.UseVisualStyleBackColor = true;
-            this.EditBtn.Click += new System.EventHandler(this.EditBtn_Click);
-            // 
             // Day_Nignt_Btn
             // 
-            this.Day_Nignt_Btn.Location = new System.Drawing.Point(730, 341);
+            this.Day_Nignt_Btn.Location = new System.Drawing.Point(729, 471);
             this.Day_Nignt_Btn.Name = "Day_Nignt_Btn";
             this.Day_Nignt_Btn.Size = new System.Drawing.Size(38, 23);
             this.Day_Nignt_Btn.TabIndex = 26;
@@ -418,21 +399,106 @@
             this.Day_Nignt_Btn.UseVisualStyleBackColor = true;
             this.Day_Nignt_Btn.Click += new System.EventHandler(this.Day_Nignt_Btn_Click);
             // 
+            // StringRadioButton
+            // 
+            this.StringRadioButton.AutoSize = true;
+            this.StringRadioButton.Checked = true;
+            this.StringRadioButton.Location = new System.Drawing.Point(12, 471);
+            this.StringRadioButton.Name = "StringRadioButton";
+            this.StringRadioButton.Size = new System.Drawing.Size(52, 17);
+            this.StringRadioButton.TabIndex = 27;
+            this.StringRadioButton.TabStop = true;
+            this.StringRadioButton.Text = "String";
+            this.StringRadioButton.UseVisualStyleBackColor = true;
+            // 
+            // HexRadioButton
+            // 
+            this.HexRadioButton.AutoSize = true;
+            this.HexRadioButton.Location = new System.Drawing.Point(104, 471);
+            this.HexRadioButton.Name = "HexRadioButton";
+            this.HexRadioButton.Size = new System.Drawing.Size(44, 17);
+            this.HexRadioButton.TabIndex = 28;
+            this.HexRadioButton.Text = "Hex";
+            this.HexRadioButton.UseVisualStyleBackColor = true;
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(501, 481);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(54, 13);
+            this.label7.TabIndex = 31;
+            this.label7.Text = "Loop step";
+            // 
+            // LoopNumeric
+            // 
+            this.LoopNumeric.Location = new System.Drawing.Point(561, 474);
+            this.LoopNumeric.Maximum = new decimal(new int[] {
+            10000,
+            0,
+            0,
+            0});
+            this.LoopNumeric.Name = "LoopNumeric";
+            this.LoopNumeric.Size = new System.Drawing.Size(55, 20);
+            this.LoopNumeric.TabIndex = 32;
+            this.LoopNumeric.Value = new decimal(new int[] {
+            50,
+            0,
+            0,
+            0});
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(622, 481);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(20, 13);
+            this.label8.TabIndex = 33;
+            this.label8.Text = "ms";
+            // 
+            // LoopButton
+            // 
+            this.LoopButton.Location = new System.Drawing.Point(648, 471);
+            this.LoopButton.Name = "LoopButton";
+            this.LoopButton.Size = new System.Drawing.Size(75, 23);
+            this.LoopButton.TabIndex = 34;
+            this.LoopButton.Text = "Start";
+            this.LoopButton.UseVisualStyleBackColor = true;
+            this.LoopButton.Click += new System.EventHandler(this.LoopButton_Click);
+            // 
+            // outputToolStripMenuItem
+            // 
+            this.outputToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.clearOutputWindowToolStripMenuItem});
+            this.outputToolStripMenuItem.Name = "outputToolStripMenuItem";
+            this.outputToolStripMenuItem.Size = new System.Drawing.Size(57, 20);
+            this.outputToolStripMenuItem.Text = "Output";
+            // 
+            // clearOutputWindowToolStripMenuItem
+            // 
+            this.clearOutputWindowToolStripMenuItem.Name = "clearOutputWindowToolStripMenuItem";
+            this.clearOutputWindowToolStripMenuItem.Size = new System.Drawing.Size(185, 22);
+            this.clearOutputWindowToolStripMenuItem.Text = "Clear output window";
+            this.clearOutputWindowToolStripMenuItem.Click += new System.EventHandler(this.clearOutputWindowToolStripMenuItem_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(780, 376);
+            this.ClientSize = new System.Drawing.Size(779, 506);
+            this.Controls.Add(this.LoopButton);
+            this.Controls.Add(this.label8);
+            this.Controls.Add(this.LoopNumeric);
+            this.Controls.Add(this.label7);
+            this.Controls.Add(this.HexRadioButton);
+            this.Controls.Add(this.StringRadioButton);
             this.Controls.Add(this.Day_Nignt_Btn);
-            this.Controls.Add(this.EditBtn);
-            this.Controls.Add(this.CloseBtn);
             this.Controls.Add(this.ShowSentCommCheckBox);
             this.Controls.Add(this.StopBitsBox);
             this.Controls.Add(this.DataBitsBox);
             this.Controls.Add(this.ParityBox);
             this.Controls.Add(this.BaudRateBox);
             this.Controls.Add(this.COMbox);
-            this.Controls.Add(this.SaveBtn);
             this.Controls.Add(this.OpenBtn);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.label5);
@@ -451,6 +517,7 @@
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Form1_FormClosed);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.LoopNumeric)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -468,8 +535,6 @@
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Button OpenBtn;
-        private System.Windows.Forms.Button CloseBtn;
-        private System.Windows.Forms.Button SaveBtn;
         private System.Windows.Forms.ComboBox COMbox;
         private System.Windows.Forms.ComboBox BaudRateBox;
         private System.Windows.Forms.ComboBox ParityBox;
@@ -483,7 +548,6 @@
         private System.Windows.Forms.ToolStripMenuItem settingsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem colorToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem languageWIPToolStripMenuItem;
-        private System.Windows.Forms.Button EditBtn;
         private System.Windows.Forms.ToolStripMenuItem dToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem5;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem4;
@@ -498,6 +562,14 @@
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem10;
         private System.Windows.Forms.Button Day_Nignt_Btn;
         private System.Windows.Forms.SaveFileDialog saveFileDialog1;
+        private System.Windows.Forms.RadioButton StringRadioButton;
+        private System.Windows.Forms.RadioButton HexRadioButton;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.NumericUpDown LoopNumeric;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.Button LoopButton;
+        private System.Windows.Forms.ToolStripMenuItem outputToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem clearOutputWindowToolStripMenuItem;
     }
 }
 

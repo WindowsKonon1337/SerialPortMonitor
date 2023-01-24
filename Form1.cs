@@ -11,6 +11,8 @@ using System.Windows.Forms;
 using System.IO.Ports;
 using System.Configuration;
 using System.IO;
+using System.Timers;
+using ASPM.Additional;
 
 namespace ASPM
 {
@@ -29,7 +31,38 @@ namespace ASPM
 
         #endregion
 
-        bool IsBlack = false;
+        private AppState _state;
+
+        private static System.Timers.Timer LoopTimer = new System.Timers.Timer();
+
+        [Obsolete]
+        private void SaveParameters()
+        {
+            serialPort1.PortName = COMbox.Text.ToString();
+
+            COMbox.Enabled = false;
+
+            serialPort1.BaudRate = int.Parse(BaudRateBox.Text);
+
+            serialPort1.Parity = (Parity)int.Parse(ConfigurationSettings.AppSettings.Get(ParityBox.Text.ToString()));
+
+            serialPort1.DataBits = int.Parse(DataBitsBox.Text.ToString());
+
+            serialPort1.StopBits = (StopBits)int.Parse(ConfigurationSettings.AppSettings.Get(StopBitsBox.Text.ToString()));
+        }
+
+        [Obsolete]
+        private void UpdateParameters()
+        {
+
+            serialPort1.BaudRate = int.Parse(BaudRateBox.Text);
+
+            serialPort1.Parity = (Parity)int.Parse(ConfigurationSettings.AppSettings.Get(ParityBox.Text.ToString()));
+
+            serialPort1.DataBits = int.Parse(DataBitsBox.Text.ToString());
+
+            serialPort1.StopBits = (StopBits)int.Parse(ConfigurationSettings.AppSettings.Get(StopBitsBox.Text.ToString()));
+        }
 
         private List<string> GetAvaliablePorts() => 
             SerialPort.GetPortNames().ToList();
@@ -63,6 +96,14 @@ namespace ASPM
             this.MaximizeBox = false;
 
             this.FormBorderStyle = FormBorderStyle.FixedSingle;
+
+            _state.PortOpened = false;
+
+            _state.IsBlack = false;
+
+            _state.HexLength = 0;
+
+            _state.LoopStarted = false;
         }
 
         private void Form1_FormClosed(object sender, FormClosedEventArgs e)
@@ -78,81 +119,40 @@ namespace ASPM
 
         #region Buttons
 
-        [Obsolete]
-        private void SaveBtn_Click(object sender, EventArgs e)
-        {
-            
-            serialPort1.PortName = COMbox.Text.ToString();
-
-            COMbox.Enabled = false;
-
-            serialPort1.BaudRate = int.Parse(BaudRateBox.Text);
-
-            BaudRateBox.Enabled = false;
-
-            serialPort1.Parity = (Parity)int.Parse(ConfigurationSettings.AppSettings.Get(ParityBox.Text.ToString()));
-
-            ParityBox.Enabled = false;
-
-            serialPort1.DataBits = int.Parse(DataBitsBox.Text.ToString());
-
-            DataBitsBox.Enabled = false;
-
-            serialPort1.StopBits = (StopBits)int.Parse(ConfigurationSettings.AppSettings.Get(StopBitsBox.Text.ToString()));
-
-            StopBitsBox.Enabled = false;
-
-            SaveBtn.Enabled = false;
-
-            EditBtn.Enabled = true;
-
-            CloseBtn.Enabled = false;
-
-            OpenBtn.Enabled = true;
-
-            SendBtn.Enabled = false;
-        }
-
-        private void EditBtn_Click(object sender, EventArgs e)
-        {
-            StopBitsBox.Enabled = true;
-
-            SaveBtn.Enabled = true;
-
-            EditBtn.Enabled = false;
-
-            CloseBtn.Enabled = false;
-
-            OpenBtn.Enabled = false;
-
-            SendBtn.Enabled = false;
-
-            CommandString.Enabled = false;
-
-            COMbox.Enabled = true;
-
-            BaudRateBox.Enabled = true;
-
-            ParityBox.Enabled = true;
-
-            DataBitsBox.Enabled = true;
-        }
 
         private void OpenBtn_Click(object sender, EventArgs e)
         {
             try
             {
-                serialPort1.Open();
+                if (!_state.PortOpened)
+                {
+                    SaveParameters();
 
-                SendBtn.Enabled = true;
+                    serialPort1.Open();
 
-                CloseBtn.Enabled = true;
+                    SendBtn.Enabled = true;
 
-                OpenBtn.Enabled = false;
+                    CommandString.Enabled = true;
 
-                EditBtn.Enabled = false;
+                    _state.PortOpened = true;
 
-                CommandString.Enabled = true;
+                    OpenBtn.Text = "Close port";
+                }
+                else
+                {
+                    if (serialPort1.IsOpen)
+                        serialPort1.Close();
+
+                    SendBtn.Enabled = false;
+
+                    CommandString.Enabled = false;
+
+                    _state.PortOpened = false;
+
+                    COMbox.Enabled = true;
+
+                    OpenBtn.Text = "Open port";
+                }
             }
             catch (Exception ex)
             {
@@ -160,31 +160,42 @@ namespace ASPM
             }
             finally
             {
-
+                COMbox.Enabled = true;
             }
-        }
-
-        private void CloseBtn_Click(object sender, EventArgs e)
-        {
-            if (serialPort1.IsOpen)
-                serialPort1.Close();
-
-            SendBtn.Enabled = false;
-
-            CommandString.Enabled = false;
-
-            CloseBtn.Enabled = false;
-
-            OpenBtn.Enabled = true;
-
-            EditBtn.Enabled = true;
         }
 
         private void SendBtn_Click(object sender, EventArgs e)
         {
             try
             {
-                serialPort1.Write(CommandString.Text.ToString());
+                UpdateParameters();
+
+                if (CommandString.Text.Length == 0)
+                    return;
+
+                if (StringRadioButton.Checked)
+                {
+                    serialPort1.Write(CommandString.Text.ToString());
+                }
+                
+                if (HexRadioButton.Checked)
+                {
+
+                    var hexString = CommandString.Text.Remove(CommandString.Text.Length - 1);
+
+                    var hexStringArray = hexString.Split(' ');
+
+                    byte[] buffer = new byte[hexStringArray.Length];
+
+                    for (int i = 0; i < hexStringArray.Length; i++)
+                    {
+                        buffer[i] = Convert.ToByte(hexStringArray[i], 16);
+                    }
+
+                    serialPort1.Write(buffer, 0, buffer.Length);
+
+                    _state.HexLength = 0;
+                }
 
                 if (ShowSentCommCheckBox.Checked)
                     SerialOutput.Text += "[your command]: " + CommandString.Text.ToString() + "\n";
@@ -195,13 +206,14 @@ namespace ASPM
             }
             finally
             {
-                CommandString.Text = "";
+                if (!_state.LoopStarted)
+                    CommandString.Text = "";
             }
         }
 
         private void Day_Nignt_Btn_Click(object sender, EventArgs e)
         {
-            if (!IsBlack)
+            if (!_state.IsBlack)
             {
                 BackColor = Color.FromArgb(255, 32, 32, 32);
 
@@ -210,7 +222,7 @@ namespace ASPM
 
                 CommandString.BackColor = Color.FromArgb(255, 109, 110, 166);
                 CommandString.ForeColor = Color.FromArgb(255, 204, 204, 204);
-                IsBlack = !IsBlack;
+                _state.IsBlack = !_state.IsBlack;
             }
             else
             {
@@ -221,8 +233,35 @@ namespace ASPM
 
                 CommandString.BackColor = Color.White;
                 CommandString.ForeColor = Color.Black;
-                IsBlack = !IsBlack;
+                _state.IsBlack = !_state.IsBlack;
             }
+        }
+
+        private void LoopButton_Click(object sender, EventArgs e)
+        {
+            if (!_state.LoopStarted)
+            {
+                _state.LoopStarted = true;
+
+                LoopTimer.Interval = (int)LoopNumeric.Value;
+
+                LoopTimer.Elapsed += SendBtn_Click;
+
+                LoopTimer.Start();
+
+                LoopButton.Text = "Stop";
+            }
+            else
+            {
+                _state.LoopStarted = false;
+
+                LoopTimer.Stop();
+
+                LoopTimer.Elapsed -= SendBtn_Click;
+
+                LoopButton.Text = "Start";
+            }
+
         }
 
         #endregion
@@ -311,6 +350,28 @@ namespace ASPM
         {
            if (e.KeyChar == '\r')
                 SendBtn_Click(sender, e);
+        }
+
+        private void CommandString_KeyUp(object sender, KeyEventArgs e)
+        {
+            if (HexRadioButton.Checked)
+            {
+                _state.HexLength += 1;
+
+                CommandString.Text = CommandString.Text.ToUpper();
+
+                if (_state.HexLength % 2 == 0)
+                {
+                    CommandString.Text += " ";
+                }
+
+                CommandString.SelectionStart = CommandString.Text.Length;
+            }
+        }
+
+        private void clearOutputWindowToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            SerialOutput.Text = "";
         }
     }
 }
