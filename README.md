@@ -4,6 +4,9 @@ Download Setup Wizard(Windows x86): https://drive.google.com/file/d/1uqSZg_CvtxR
 
 ## Change log:
 
+v 1.2.0
+Scaling fix
+
 v 1.1.0
 Added Windows setup wizard
 
