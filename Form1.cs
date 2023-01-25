@@ -19,15 +19,15 @@ namespace ASPM
     public partial class Form1 : System.Windows.Forms.Form
     {
         #region SerialPortDescriptionLists
-        public static List<string> _ports = new List<string>();
+        private static List<string> _ports = new List<string>();
 
-        public static List<string> _baudRate = new List<string> { "4800", "9600", "14400", "19200", "115200"};
+        private static List<string> _baudRate = new List<string> { "4800", "9600", "14400", "19200", "115200"};
 
-        public static List<string> _parity = new List<string> { "None", "Odd", "Even"};
+        private static List<string> _parity = new List<string> { "None", "Odd", "Even"};
 
-        public static List<string> _dataBits = new List<string> { "8", "7"};
+        private static List<string> _dataBits = new List<string> { "8", "7"};
 
-        public static List<string> _stopBits = new List<string> { "None", "1", "1.5", "2"};
+        private static List<string> _stopBits = new List<string> { "None", "1", "1.5", "2"};
 
         #endregion
 
@@ -115,6 +115,11 @@ namespace ASPM
         private void serialPort1_DataReceived(object sender, SerialDataReceivedEventArgs e)
         {
             SerialOutput.Text += serialPort1.ReadExisting().ToString() + "\n";
+        }
+
+        private void clearOutputWindowToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            SerialOutput.Text = "";
         }
 
         #region Buttons
@@ -206,6 +211,10 @@ namespace ASPM
             }
             finally
             {
+                SerialOutput.SelectionStart = SerialOutput.Text.Length;
+
+                SerialOutput.ScrollToCaret();
+
                 if (!_state.LoopStarted)
                     CommandString.Text = "";
             }
@@ -324,28 +333,7 @@ namespace ASPM
         }
         #endregion
 
-        #region SaveFilesSettings
-        private void saveToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-
-            saveFileDialog1.Filter = "Text file (*.txt)|*.txt|Word File (*.doc)|*.doc|Word File (*.docx)|*.docx";
-            saveFileDialog1.RestoreDirectory = true;
-
-            if (saveFileDialog1.ShowDialog() == DialogResult.OK)
-                File.WriteAllText(saveFileDialog1.FileName, SerialOutput.Text);
-        }
-
-        private void saveAsToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            saveFileDialog1.RestoreDirectory = true;
-            saveFileDialog1.Filter = "All files (*.*)|*.*";
-
-
-            if (saveFileDialog1.ShowDialog() == DialogResult.OK)
-                File.WriteAllText(saveFileDialog1.FileName, SerialOutput.Text);
-        }
-        #endregion
-
+        #region CommandStringEvents
         private void CommandString_KeyPress(object sender, KeyPressEventArgs e)
         {
            if (e.KeyChar == '\r')
@@ -368,10 +356,34 @@ namespace ASPM
                 CommandString.SelectionStart = CommandString.Text.Length;
             }
         }
+        #endregion
 
-        private void clearOutputWindowToolStripMenuItem_Click(object sender, EventArgs e)
+        #region Session
+        private void saveSessionToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            SerialOutput.Text = "";
+            saveFileDialog1.Filter = "Session file (*.session)|*.session";
+
+            saveFileDialog1.RestoreDirectory = true;
+
+            if (saveFileDialog1.ShowDialog() == DialogResult.OK)
+                using (BinaryWriter bw = new BinaryWriter(File.Open(saveFileDialog1.FileName, FileMode.Create)))
+                {
+                    bw.Write(SerialOutput.Text);
+                };
         }
+
+        private void loadSessionToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            openFileDialog1.Filter = "Session file (*.session)|*.session";
+
+            openFileDialog1.RestoreDirectory = true;
+
+            if (openFileDialog1.ShowDialog() == DialogResult.OK)
+                using (BinaryReader br = new BinaryReader(File.Open(openFileDialog1.FileName, FileMode.Open)))
+                {
+                    SerialOutput.Text = br.ReadString();
+                }
+        }
+        #endregion
     }
 }

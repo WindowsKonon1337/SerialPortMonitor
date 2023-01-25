@@ -48,9 +48,6 @@
             this.StopBitsBox = new System.Windows.Forms.ComboBox();
             this.ShowSentCommCheckBox = new System.Windows.Forms.CheckBox();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
-            this.helloToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.saveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.saveAsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.settingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.colorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.dToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -66,6 +63,8 @@
             this.toolStripMenuItem9 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem10 = new System.Windows.Forms.ToolStripMenuItem();
             this.languageWIPToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.outputToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.clearOutputWindowToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.Day_Nignt_Btn = new System.Windows.Forms.Button();
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
             this.StringRadioButton = new System.Windows.Forms.RadioButton();
@@ -74,8 +73,10 @@
             this.LoopNumeric = new System.Windows.Forms.NumericUpDown();
             this.label8 = new System.Windows.Forms.Label();
             this.LoopButton = new System.Windows.Forms.Button();
-            this.outputToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.clearOutputWindowToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.sessionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.loadSessionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.saveSessionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.LoopNumeric)).BeginInit();
             this.SuspendLayout();
@@ -229,6 +230,8 @@
             // ShowSentCommCheckBox
             // 
             this.ShowSentCommCheckBox.AutoSize = true;
+            this.ShowSentCommCheckBox.Checked = true;
+            this.ShowSentCommCheckBox.CheckState = System.Windows.Forms.CheckState.Checked;
             this.ShowSentCommCheckBox.Location = new System.Drawing.Point(637, 393);
             this.ShowSentCommCheckBox.Name = "ShowSentCommCheckBox";
             this.ShowSentCommCheckBox.Size = new System.Drawing.Size(130, 17);
@@ -239,7 +242,7 @@
             // menuStrip1
             // 
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.helloToolStripMenuItem,
+            this.sessionToolStripMenuItem,
             this.settingsToolStripMenuItem,
             this.outputToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
@@ -247,29 +250,6 @@
             this.menuStrip1.Size = new System.Drawing.Size(779, 24);
             this.menuStrip1.TabIndex = 25;
             this.menuStrip1.Text = "menuStrip1";
-            // 
-            // helloToolStripMenuItem
-            // 
-            this.helloToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.saveToolStripMenuItem,
-            this.saveAsToolStripMenuItem});
-            this.helloToolStripMenuItem.Name = "helloToolStripMenuItem";
-            this.helloToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
-            this.helloToolStripMenuItem.Text = "File";
-            // 
-            // saveToolStripMenuItem
-            // 
-            this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
-            this.saveToolStripMenuItem.Size = new System.Drawing.Size(112, 22);
-            this.saveToolStripMenuItem.Text = "Save";
-            this.saveToolStripMenuItem.Click += new System.EventHandler(this.saveToolStripMenuItem_Click);
-            // 
-            // saveAsToolStripMenuItem
-            // 
-            this.saveAsToolStripMenuItem.Name = "saveAsToolStripMenuItem";
-            this.saveAsToolStripMenuItem.Size = new System.Drawing.Size(112, 22);
-            this.saveAsToolStripMenuItem.Text = "Save as";
-            this.saveAsToolStripMenuItem.Click += new System.EventHandler(this.saveAsToolStripMenuItem_Click);
             // 
             // settingsToolStripMenuItem
             // 
@@ -286,7 +266,7 @@
             this.dToolStripMenuItem,
             this.sendColorToolStripMenuItem});
             this.colorToolStripMenuItem.Name = "colorToolStripMenuItem";
-            this.colorToolStripMenuItem.Size = new System.Drawing.Size(155, 22);
+            this.colorToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.colorToolStripMenuItem.Text = "Color";
             // 
             // dToolStripMenuItem
@@ -298,7 +278,7 @@
             this.toolStripMenuItem2,
             this.toolStripMenuItem1});
             this.dToolStripMenuItem.Name = "dToolStripMenuItem";
-            this.dToolStripMenuItem.Size = new System.Drawing.Size(143, 22);
+            this.dToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.dToolStripMenuItem.Text = "RecieveColor";
             // 
             // toolStripMenuItem5
@@ -345,7 +325,7 @@
             this.toolStripMenuItem9,
             this.toolStripMenuItem10});
             this.sendColorToolStripMenuItem.Name = "sendColorToolStripMenuItem";
-            this.sendColorToolStripMenuItem.Size = new System.Drawing.Size(143, 22);
+            this.sendColorToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.sendColorToolStripMenuItem.Text = "SendColor";
             // 
             // toolStripMenuItem6
@@ -386,8 +366,23 @@
             // languageWIPToolStripMenuItem
             // 
             this.languageWIPToolStripMenuItem.Name = "languageWIPToolStripMenuItem";
-            this.languageWIPToolStripMenuItem.Size = new System.Drawing.Size(155, 22);
+            this.languageWIPToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.languageWIPToolStripMenuItem.Text = "Language(WIP)";
+            // 
+            // outputToolStripMenuItem
+            // 
+            this.outputToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.clearOutputWindowToolStripMenuItem});
+            this.outputToolStripMenuItem.Name = "outputToolStripMenuItem";
+            this.outputToolStripMenuItem.Size = new System.Drawing.Size(57, 20);
+            this.outputToolStripMenuItem.Text = "Output";
+            // 
+            // clearOutputWindowToolStripMenuItem
+            // 
+            this.clearOutputWindowToolStripMenuItem.Name = "clearOutputWindowToolStripMenuItem";
+            this.clearOutputWindowToolStripMenuItem.Size = new System.Drawing.Size(185, 22);
+            this.clearOutputWindowToolStripMenuItem.Text = "Clear output window";
+            this.clearOutputWindowToolStripMenuItem.Click += new System.EventHandler(this.clearOutputWindowToolStripMenuItem_Click);
             // 
             // Day_Nignt_Btn
             // 
@@ -466,20 +461,32 @@
             this.LoopButton.UseVisualStyleBackColor = true;
             this.LoopButton.Click += new System.EventHandler(this.LoopButton_Click);
             // 
-            // outputToolStripMenuItem
+            // sessionToolStripMenuItem
             // 
-            this.outputToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.clearOutputWindowToolStripMenuItem});
-            this.outputToolStripMenuItem.Name = "outputToolStripMenuItem";
-            this.outputToolStripMenuItem.Size = new System.Drawing.Size(57, 20);
-            this.outputToolStripMenuItem.Text = "Output";
+            this.sessionToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.loadSessionToolStripMenuItem,
+            this.saveSessionToolStripMenuItem});
+            this.sessionToolStripMenuItem.Name = "sessionToolStripMenuItem";
+            this.sessionToolStripMenuItem.Size = new System.Drawing.Size(58, 20);
+            this.sessionToolStripMenuItem.Text = "Session";
             // 
-            // clearOutputWindowToolStripMenuItem
+            // loadSessionToolStripMenuItem
             // 
-            this.clearOutputWindowToolStripMenuItem.Name = "clearOutputWindowToolStripMenuItem";
-            this.clearOutputWindowToolStripMenuItem.Size = new System.Drawing.Size(185, 22);
-            this.clearOutputWindowToolStripMenuItem.Text = "Clear output window";
-            this.clearOutputWindowToolStripMenuItem.Click += new System.EventHandler(this.clearOutputWindowToolStripMenuItem_Click);
+            this.loadSessionToolStripMenuItem.Name = "loadSessionToolStripMenuItem";
+            this.loadSessionToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.loadSessionToolStripMenuItem.Text = "Load Session";
+            this.loadSessionToolStripMenuItem.Click += new System.EventHandler(this.loadSessionToolStripMenuItem_Click);
+            // 
+            // saveSessionToolStripMenuItem
+            // 
+            this.saveSessionToolStripMenuItem.Name = "saveSessionToolStripMenuItem";
+            this.saveSessionToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.saveSessionToolStripMenuItem.Text = "Save Session";
+            this.saveSessionToolStripMenuItem.Click += new System.EventHandler(this.saveSessionToolStripMenuItem_Click);
+            // 
+            // openFileDialog1
+            // 
+            this.openFileDialog1.FileName = "openFileDialog1";
             // 
             // Form1
             // 
@@ -542,9 +549,6 @@
         private System.Windows.Forms.ComboBox StopBitsBox;
         private System.Windows.Forms.CheckBox ShowSentCommCheckBox;
         private System.Windows.Forms.MenuStrip menuStrip1;
-        private System.Windows.Forms.ToolStripMenuItem helloToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem saveToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem saveAsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem settingsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem colorToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem languageWIPToolStripMenuItem;
@@ -570,6 +574,10 @@
         private System.Windows.Forms.Button LoopButton;
         private System.Windows.Forms.ToolStripMenuItem outputToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem clearOutputWindowToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem sessionToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem loadSessionToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem saveSessionToolStripMenuItem;
+        private System.Windows.Forms.OpenFileDialog openFileDialog1;
     }
 }
 
