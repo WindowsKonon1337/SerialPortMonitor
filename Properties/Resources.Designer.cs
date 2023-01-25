@@ -59,15 +59,5 @@ namespace ASPM.Properties {
                 resourceCulture = value;
             }
         }
-        
-        /// <summary>
-        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap Day_Night_Btn {
-            get {
-                object obj = ResourceManager.GetObject("Day_Night_Btn", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
     }
 }
