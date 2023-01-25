@@ -11,12 +11,11 @@ using System.Windows.Forms;
 using System.IO.Ports;
 using System.Configuration;
 using System.IO;
-using System.Timers;
 using ASPM.Additional;
 
 namespace ASPM
 {
-    public partial class Form1 : System.Windows.Forms.Form
+    public partial class MainForm : System.Windows.Forms.Form
     {
         #region SerialPortDescriptionLists
         private static List<string> _ports = new List<string>();
@@ -67,7 +66,7 @@ namespace ASPM
         private List<string> GetAvaliablePorts() => 
             SerialPort.GetPortNames().ToList();
 
-        public Form1()
+        public MainForm()
         {
             InitializeComponent();
 
@@ -145,6 +144,10 @@ namespace ASPM
                 }
                 else
                 {
+
+                    if (_state.LoopStarted)
+                        LoopButton_Click(sender, e);
+
                     if (serialPort1.IsOpen)
                         serialPort1.Close();
 
@@ -161,7 +164,7 @@ namespace ASPM
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message.ToString(), "Что-то пошло не так :(");
+                MessageBox.Show(ex.Message.ToString(), "Something`s not right :(");
             }
             finally
             {
@@ -207,7 +210,8 @@ namespace ASPM
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message.ToString(), "Что-то пошло не так :(");
+                MessageBox.Show(ex.Message.ToString(), "Something`s not right :(");
+
             }
             finally
             {
@@ -217,32 +221,6 @@ namespace ASPM
 
                 if (!_state.LoopStarted)
                     CommandString.Text = "";
-            }
-        }
-
-        private void Day_Nignt_Btn_Click(object sender, EventArgs e)
-        {
-            if (!_state.IsBlack)
-            {
-                BackColor = Color.FromArgb(255, 32, 32, 32);
-
-                SerialOutput.BackColor = Color.FromArgb(255, 38, 33, 33);
-                SerialOutput.ForeColor = Color.FromArgb(255, 204, 204, 204);
-
-                CommandString.BackColor = Color.FromArgb(255, 109, 110, 166);
-                CommandString.ForeColor = Color.FromArgb(255, 204, 204, 204);
-                _state.IsBlack = !_state.IsBlack;
-            }
-            else
-            {
-                BackColor = Color.White;
-
-                SerialOutput.BackColor = Color.White;
-                SerialOutput.ForeColor = Color.Black;
-
-                CommandString.BackColor = Color.White;
-                CommandString.ForeColor = Color.Black;
-                _state.IsBlack = !_state.IsBlack;
             }
         }
 
@@ -258,7 +236,7 @@ namespace ASPM
 
                 LoopTimer.Start();
 
-                LoopButton.Text = "Stop";
+                LoopButton.Text = "Stop loop";
             }
             else
             {
@@ -268,7 +246,7 @@ namespace ASPM
 
                 LoopTimer.Elapsed -= SendBtn_Click;
 
-                LoopButton.Text = "Start";
+                LoopButton.Text = "Start loop";
             }
 
         }
@@ -385,5 +363,29 @@ namespace ASPM
                 }
         }
         #endregion
+
+        #region OutputFont
+        private void sizeToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var FontForm = new FontForm(this);
+
+            FontForm.ShowDialog();
+        }
+
+        public void ChangeOutputFontSize(int FontSize)
+        {
+            SerialOutput.Font = new Font(SerialOutput.SelectionFont.FontFamily, FontSize, SerialOutput.SelectionFont.Style);
+        }
+        #endregion
+
+        private void creditsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (MessageBox.Show("Would you like to go to the project repository?",
+                "Yeah, star it)",
+                MessageBoxButtons.YesNo,
+                MessageBoxIcon.Asterisk
+               ) == DialogResult.Yes)
+                System.Diagnostics.Process.Start("https://github.com/WindowsKonon1337/SerialPortMonitor");
+        }
     }
 }

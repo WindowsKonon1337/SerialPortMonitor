@@ -1,6 +1,6 @@
 ﻿namespace ASPM
 {
-    partial class Form1
+    partial class MainForm
     {
         /// <summary>
         /// Обязательная переменная конструктора.
@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.serialPort1 = new System.IO.Ports.SerialPort(this.components);
             this.SerialOutput = new System.Windows.Forms.RichTextBox();
             this.CommandString = new System.Windows.Forms.TextBox();
@@ -48,6 +48,9 @@
             this.StopBitsBox = new System.Windows.Forms.ComboBox();
             this.ShowSentCommCheckBox = new System.Windows.Forms.CheckBox();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
+            this.sessionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.loadSessionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.saveSessionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.settingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.colorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.dToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -62,10 +65,11 @@
             this.toolStripMenuItem8 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem9 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem10 = new System.Windows.Forms.ToolStripMenuItem();
+            this.fontToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.sizeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.languageWIPToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.outputToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.clearOutputWindowToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.Day_Nignt_Btn = new System.Windows.Forms.Button();
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
             this.StringRadioButton = new System.Windows.Forms.RadioButton();
             this.HexRadioButton = new System.Windows.Forms.RadioButton();
@@ -73,10 +77,9 @@
             this.LoopNumeric = new System.Windows.Forms.NumericUpDown();
             this.label8 = new System.Windows.Forms.Label();
             this.LoopButton = new System.Windows.Forms.Button();
-            this.sessionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.loadSessionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.saveSessionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
+            this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.creditsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.LoopNumeric)).BeginInit();
             this.SuspendLayout();
@@ -244,17 +247,42 @@
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.sessionToolStripMenuItem,
             this.settingsToolStripMenuItem,
-            this.outputToolStripMenuItem});
+            this.outputToolStripMenuItem,
+            this.aboutToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(779, 24);
             this.menuStrip1.TabIndex = 25;
             this.menuStrip1.Text = "menuStrip1";
             // 
+            // sessionToolStripMenuItem
+            // 
+            this.sessionToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.loadSessionToolStripMenuItem,
+            this.saveSessionToolStripMenuItem});
+            this.sessionToolStripMenuItem.Name = "sessionToolStripMenuItem";
+            this.sessionToolStripMenuItem.Size = new System.Drawing.Size(58, 20);
+            this.sessionToolStripMenuItem.Text = "Session";
+            // 
+            // loadSessionToolStripMenuItem
+            // 
+            this.loadSessionToolStripMenuItem.Name = "loadSessionToolStripMenuItem";
+            this.loadSessionToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.loadSessionToolStripMenuItem.Text = "Load Session";
+            this.loadSessionToolStripMenuItem.Click += new System.EventHandler(this.loadSessionToolStripMenuItem_Click);
+            // 
+            // saveSessionToolStripMenuItem
+            // 
+            this.saveSessionToolStripMenuItem.Name = "saveSessionToolStripMenuItem";
+            this.saveSessionToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.saveSessionToolStripMenuItem.Text = "Save Session";
+            this.saveSessionToolStripMenuItem.Click += new System.EventHandler(this.saveSessionToolStripMenuItem_Click);
+            // 
             // settingsToolStripMenuItem
             // 
             this.settingsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.colorToolStripMenuItem,
+            this.fontToolStripMenuItem,
             this.languageWIPToolStripMenuItem});
             this.settingsToolStripMenuItem.Name = "settingsToolStripMenuItem";
             this.settingsToolStripMenuItem.Size = new System.Drawing.Size(61, 20);
@@ -278,7 +306,7 @@
             this.toolStripMenuItem2,
             this.toolStripMenuItem1});
             this.dToolStripMenuItem.Name = "dToolStripMenuItem";
-            this.dToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.dToolStripMenuItem.Size = new System.Drawing.Size(143, 22);
             this.dToolStripMenuItem.Text = "RecieveColor";
             // 
             // toolStripMenuItem5
@@ -325,7 +353,7 @@
             this.toolStripMenuItem9,
             this.toolStripMenuItem10});
             this.sendColorToolStripMenuItem.Name = "sendColorToolStripMenuItem";
-            this.sendColorToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.sendColorToolStripMenuItem.Size = new System.Drawing.Size(143, 22);
             this.sendColorToolStripMenuItem.Text = "SendColor";
             // 
             // toolStripMenuItem6
@@ -363,6 +391,22 @@
             this.toolStripMenuItem10.Text = "Yellow";
             this.toolStripMenuItem10.Click += new System.EventHandler(this.toolStripMenuItem10_Click);
             // 
+            // fontToolStripMenuItem
+            // 
+            this.fontToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.sizeToolStripMenuItem});
+            this.fontToolStripMenuItem.Name = "fontToolStripMenuItem";
+            this.fontToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.fontToolStripMenuItem.Text = "Monitor Font";
+            // 
+            // sizeToolStripMenuItem
+            // 
+            this.sizeToolStripMenuItem.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.sizeToolStripMenuItem.Name = "sizeToolStripMenuItem";
+            this.sizeToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.sizeToolStripMenuItem.Text = "Size";
+            this.sizeToolStripMenuItem.Click += new System.EventHandler(this.sizeToolStripMenuItem_Click);
+            // 
             // languageWIPToolStripMenuItem
             // 
             this.languageWIPToolStripMenuItem.Name = "languageWIPToolStripMenuItem";
@@ -380,19 +424,9 @@
             // clearOutputWindowToolStripMenuItem
             // 
             this.clearOutputWindowToolStripMenuItem.Name = "clearOutputWindowToolStripMenuItem";
-            this.clearOutputWindowToolStripMenuItem.Size = new System.Drawing.Size(185, 22);
-            this.clearOutputWindowToolStripMenuItem.Text = "Clear output window";
+            this.clearOutputWindowToolStripMenuItem.Size = new System.Drawing.Size(189, 22);
+            this.clearOutputWindowToolStripMenuItem.Text = "Clear Output Window";
             this.clearOutputWindowToolStripMenuItem.Click += new System.EventHandler(this.clearOutputWindowToolStripMenuItem_Click);
-            // 
-            // Day_Nignt_Btn
-            // 
-            this.Day_Nignt_Btn.Location = new System.Drawing.Point(729, 471);
-            this.Day_Nignt_Btn.Name = "Day_Nignt_Btn";
-            this.Day_Nignt_Btn.Size = new System.Drawing.Size(38, 23);
-            this.Day_Nignt_Btn.TabIndex = 26;
-            this.Day_Nignt_Btn.Text = "D/N";
-            this.Day_Nignt_Btn.UseVisualStyleBackColor = true;
-            this.Day_Nignt_Btn.Click += new System.EventHandler(this.Day_Nignt_Btn_Click);
             // 
             // StringRadioButton
             // 
@@ -419,15 +453,15 @@
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(501, 481);
+            this.label7.Location = new System.Drawing.Point(480, 476);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(54, 13);
+            this.label7.Size = new System.Drawing.Size(57, 13);
             this.label7.TabIndex = 31;
-            this.label7.Text = "Loop step";
+            this.label7.Text = "Loop step:";
             // 
             // LoopNumeric
             // 
-            this.LoopNumeric.Location = new System.Drawing.Point(561, 474);
+            this.LoopNumeric.Location = new System.Drawing.Point(543, 474);
             this.LoopNumeric.Maximum = new decimal(new int[] {
             10000,
             0,
@@ -445,7 +479,7 @@
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(622, 481);
+            this.label8.Location = new System.Drawing.Point(604, 476);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(20, 13);
             this.label8.TabIndex = 33;
@@ -453,42 +487,34 @@
             // 
             // LoopButton
             // 
-            this.LoopButton.Location = new System.Drawing.Point(648, 471);
+            this.LoopButton.Location = new System.Drawing.Point(642, 471);
             this.LoopButton.Name = "LoopButton";
-            this.LoopButton.Size = new System.Drawing.Size(75, 23);
+            this.LoopButton.Size = new System.Drawing.Size(125, 23);
             this.LoopButton.TabIndex = 34;
-            this.LoopButton.Text = "Start";
+            this.LoopButton.Text = "Start loop";
             this.LoopButton.UseVisualStyleBackColor = true;
             this.LoopButton.Click += new System.EventHandler(this.LoopButton_Click);
-            // 
-            // sessionToolStripMenuItem
-            // 
-            this.sessionToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.loadSessionToolStripMenuItem,
-            this.saveSessionToolStripMenuItem});
-            this.sessionToolStripMenuItem.Name = "sessionToolStripMenuItem";
-            this.sessionToolStripMenuItem.Size = new System.Drawing.Size(58, 20);
-            this.sessionToolStripMenuItem.Text = "Session";
-            // 
-            // loadSessionToolStripMenuItem
-            // 
-            this.loadSessionToolStripMenuItem.Name = "loadSessionToolStripMenuItem";
-            this.loadSessionToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.loadSessionToolStripMenuItem.Text = "Load Session";
-            this.loadSessionToolStripMenuItem.Click += new System.EventHandler(this.loadSessionToolStripMenuItem_Click);
-            // 
-            // saveSessionToolStripMenuItem
-            // 
-            this.saveSessionToolStripMenuItem.Name = "saveSessionToolStripMenuItem";
-            this.saveSessionToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.saveSessionToolStripMenuItem.Text = "Save Session";
-            this.saveSessionToolStripMenuItem.Click += new System.EventHandler(this.saveSessionToolStripMenuItem_Click);
             // 
             // openFileDialog1
             // 
             this.openFileDialog1.FileName = "openFileDialog1";
             // 
-            // Form1
+            // aboutToolStripMenuItem
+            // 
+            this.aboutToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.creditsToolStripMenuItem});
+            this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
+            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(52, 20);
+            this.aboutToolStripMenuItem.Text = "About";
+            // 
+            // creditsToolStripMenuItem
+            // 
+            this.creditsToolStripMenuItem.Name = "creditsToolStripMenuItem";
+            this.creditsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.creditsToolStripMenuItem.Text = "Credits";
+            this.creditsToolStripMenuItem.Click += new System.EventHandler(this.creditsToolStripMenuItem_Click);
+            // 
+            // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -499,7 +525,6 @@
             this.Controls.Add(this.label7);
             this.Controls.Add(this.HexRadioButton);
             this.Controls.Add(this.StringRadioButton);
-            this.Controls.Add(this.Day_Nignt_Btn);
             this.Controls.Add(this.ShowSentCommCheckBox);
             this.Controls.Add(this.StopBitsBox);
             this.Controls.Add(this.DataBitsBox);
@@ -519,7 +544,7 @@
             this.Controls.Add(this.menuStrip1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.menuStrip1;
-            this.Name = "Form1";
+            this.Name = "MainForm";
             this.Text = "Serial Port Monitor by WindowsKonon1337";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Form1_FormClosed);
             this.menuStrip1.ResumeLayout(false);
@@ -564,7 +589,6 @@
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem8;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem9;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem10;
-        private System.Windows.Forms.Button Day_Nignt_Btn;
         private System.Windows.Forms.SaveFileDialog saveFileDialog1;
         private System.Windows.Forms.RadioButton StringRadioButton;
         private System.Windows.Forms.RadioButton HexRadioButton;
@@ -578,6 +602,10 @@
         private System.Windows.Forms.ToolStripMenuItem loadSessionToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem saveSessionToolStripMenuItem;
         private System.Windows.Forms.OpenFileDialog openFileDialog1;
+        private System.Windows.Forms.ToolStripMenuItem fontToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem sizeToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem creditsToolStripMenuItem;
     }
 }
 
