@@ -11,6 +11,7 @@ using System.Windows.Forms;
 using System.IO.Ports;
 using System.Configuration;
 using System.IO;
+using System.Collections.Concurrent;
 using ASPM.Additional;
 
 namespace ASPM
@@ -34,33 +35,37 @@ namespace ASPM
 
         private static System.Timers.Timer LoopTimer = new System.Timers.Timer();
 
+        internal static MainForm _mainForm;
+
+        internal string _recievedData = "";
+
         [Obsolete]
         private void SaveParameters()
         {
-            serialPort1.PortName = COMbox.Text.ToString();
+            serialPort.PortName = COMbox.Text.ToString();
 
             COMbox.Enabled = false;
 
-            serialPort1.BaudRate = int.Parse(BaudRateBox.Text);
+            serialPort.BaudRate = int.Parse(BaudRateBox.Text);
 
-            serialPort1.Parity = (Parity)int.Parse(ConfigurationSettings.AppSettings.Get(ParityBox.Text.ToString()));
+            serialPort.Parity = (Parity)int.Parse(ConfigurationSettings.AppSettings.Get(ParityBox.Text.ToString()));
 
-            serialPort1.DataBits = int.Parse(DataBitsBox.Text.ToString());
+            serialPort.DataBits = int.Parse(DataBitsBox.Text.ToString());
 
-            serialPort1.StopBits = (StopBits)int.Parse(ConfigurationSettings.AppSettings.Get(StopBitsBox.Text.ToString()));
+            serialPort.StopBits = (StopBits)int.Parse(ConfigurationSettings.AppSettings.Get(StopBitsBox.Text.ToString()));
         }
 
         [Obsolete]
         private void UpdateParameters()
         {
 
-            serialPort1.BaudRate = int.Parse(BaudRateBox.Text);
+            serialPort.BaudRate = int.Parse(BaudRateBox.Text);
 
-            serialPort1.Parity = (Parity)int.Parse(ConfigurationSettings.AppSettings.Get(ParityBox.Text.ToString()));
+            serialPort.Parity = (Parity)int.Parse(ConfigurationSettings.AppSettings.Get(ParityBox.Text.ToString()));
 
-            serialPort1.DataBits = int.Parse(DataBitsBox.Text.ToString());
+            serialPort.DataBits = int.Parse(DataBitsBox.Text.ToString());
 
-            serialPort1.StopBits = (StopBits)int.Parse(ConfigurationSettings.AppSettings.Get(StopBitsBox.Text.ToString()));
+            serialPort.StopBits = (StopBits)int.Parse(ConfigurationSettings.AppSettings.Get(StopBitsBox.Text.ToString()));
         }
 
         private List<string> GetAvaliablePorts() => 
@@ -69,6 +74,8 @@ namespace ASPM
         public MainForm()
         {
             InitializeComponent();
+
+            _mainForm = this;
 
             _ports = GetAvaliablePorts();
 
@@ -107,13 +114,22 @@ namespace ASPM
 
         private void Form1_FormClosed(object sender, FormClosedEventArgs e)
         {
-            if (serialPort1.IsOpen)
-                serialPort1.Close();
+            if (serialPort.IsOpen)
+                serialPort.Close();
         }
 
-        private void serialPort1_DataReceived(object sender, SerialDataReceivedEventArgs e)
+        internal void serialPort1_DataReceived(object sender, SerialDataReceivedEventArgs e)
         {
-            SerialOutput.Text += serialPort1.ReadExisting().ToString() + "\n";
+
+            _recievedData = serialPort.ReadExisting();
+
+            ProccesRecievedData(_recievedData);
+
+        }
+
+        private void ProccesRecievedData(string data) // TODO: create logic for HEX-values
+        {
+            SerialOutput.Text += data + "\n";
         }
 
         private void clearOutputWindowToolStripMenuItem_Click(object sender, EventArgs e)
@@ -132,7 +148,7 @@ namespace ASPM
                 {
                     SaveParameters();
 
-                    serialPort1.Open();
+                    serialPort.Open();
 
                     SendBtn.Enabled = true;
 
@@ -148,8 +164,8 @@ namespace ASPM
                     if (_state.LoopStarted)
                         LoopButton_Click(sender, e);
 
-                    if (serialPort1.IsOpen)
-                        serialPort1.Close();
+                    if (serialPort.IsOpen)
+                        serialPort.Close();
 
                     SendBtn.Enabled = false;
 
@@ -183,7 +199,7 @@ namespace ASPM
 
                 if (StringRadioButton.Checked)
                 {
-                    serialPort1.Write(CommandString.Text.ToString());
+                    serialPort.Write(CommandString.Text.ToString());
                 }
                 
                 if (HexRadioButton.Checked)
@@ -200,7 +216,7 @@ namespace ASPM
                         buffer[i] = Convert.ToByte(hexStringArray[i], 16);
                     }
 
-                    serialPort1.Write(buffer, 0, buffer.Length);
+                    serialPort.Write(buffer, 0, buffer.Length);
 
                     _state.HexLength = 0;
                 }
@@ -339,12 +355,12 @@ namespace ASPM
         #region Session
         private void saveSessionToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            saveFileDialog1.Filter = "Session file (*.session)|*.session";
+            saveFileDialog.Filter = "Session file (*.session)|*.session";
 
-            saveFileDialog1.RestoreDirectory = true;
+            saveFileDialog.RestoreDirectory = true;
 
-            if (saveFileDialog1.ShowDialog() == DialogResult.OK)
-                using (BinaryWriter bw = new BinaryWriter(File.Open(saveFileDialog1.FileName, FileMode.Create)))
+            if (saveFileDialog.ShowDialog() == DialogResult.OK)
+                using (BinaryWriter bw = new BinaryWriter(File.Open(saveFileDialog.FileName, FileMode.Create)))
                 {
                     bw.Write(SerialOutput.Text);
                 };
@@ -352,12 +368,12 @@ namespace ASPM
 
         private void loadSessionToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            openFileDialog1.Filter = "Session file (*.session)|*.session";
+            openFileDialog.Filter = "Session file (*.session)|*.session";
 
-            openFileDialog1.RestoreDirectory = true;
+            openFileDialog.RestoreDirectory = true;
 
-            if (openFileDialog1.ShowDialog() == DialogResult.OK)
-                using (BinaryReader br = new BinaryReader(File.Open(openFileDialog1.FileName, FileMode.Open)))
+            if (openFileDialog.ShowDialog() == DialogResult.OK)
+                using (BinaryReader br = new BinaryReader(File.Open(openFileDialog.FileName, FileMode.Open)))
                 {
                     SerialOutput.Text = br.ReadString();
                 }
@@ -386,6 +402,13 @@ namespace ASPM
                 MessageBoxIcon.Asterisk
                ) == DialogResult.Yes)
                 System.Diagnostics.Process.Start("https://github.com/WindowsKonon1337/SerialPortMonitor");
+        }
+
+        private void showGraphToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var form = new SerialChartForm(this);
+
+            form.Show();
         }
     }
 }

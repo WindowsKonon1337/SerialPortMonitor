@@ -23,9 +23,9 @@ namespace ASPM
 
             GetFontSize += form.ChangeOutputFontSize;
 
-            this.MaximizeBox = false;
+            MaximizeBox = false;
 
-            this.FormBorderStyle = FormBorderStyle.FixedSingle;
+            FormBorderStyle = FormBorderStyle.FixedSingle;
         }
 
         private void FontForm_Load(object sender, EventArgs e)

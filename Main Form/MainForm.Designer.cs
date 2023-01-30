@@ -30,7 +30,7 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
-            this.serialPort1 = new System.IO.Ports.SerialPort(this.components);
+            this.serialPort = new System.IO.Ports.SerialPort(this.components);
             this.SerialOutput = new System.Windows.Forms.RichTextBox();
             this.CommandString = new System.Windows.Forms.TextBox();
             this.SendBtn = new System.Windows.Forms.Button();
@@ -47,7 +47,7 @@
             this.DataBitsBox = new System.Windows.Forms.ComboBox();
             this.StopBitsBox = new System.Windows.Forms.ComboBox();
             this.ShowSentCommCheckBox = new System.Windows.Forms.CheckBox();
-            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
+            this.menuStrip = new System.Windows.Forms.MenuStrip();
             this.sessionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.loadSessionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.saveSessionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -70,23 +70,24 @@
             this.languageWIPToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.outputToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.clearOutputWindowToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
+            this.showGraphToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.creditsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.saveFileDialog = new System.Windows.Forms.SaveFileDialog();
             this.StringRadioButton = new System.Windows.Forms.RadioButton();
             this.HexRadioButton = new System.Windows.Forms.RadioButton();
             this.label7 = new System.Windows.Forms.Label();
             this.LoopNumeric = new System.Windows.Forms.NumericUpDown();
             this.label8 = new System.Windows.Forms.Label();
             this.LoopButton = new System.Windows.Forms.Button();
-            this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
-            this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.creditsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.menuStrip1.SuspendLayout();
+            this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
+            this.menuStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.LoopNumeric)).BeginInit();
             this.SuspendLayout();
             // 
-            // serialPort1
+            // serialPort
             // 
-            this.serialPort1.DataReceived += new System.IO.Ports.SerialDataReceivedEventHandler(this.serialPort1_DataReceived);
+            this.serialPort.DataReceived += new System.IO.Ports.SerialDataReceivedEventHandler(this.serialPort1_DataReceived);
             // 
             // SerialOutput
             // 
@@ -242,18 +243,18 @@
             this.ShowSentCommCheckBox.Text = "Show sent commands\r\n";
             this.ShowSentCommCheckBox.UseVisualStyleBackColor = true;
             // 
-            // menuStrip1
+            // menuStrip
             // 
-            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.menuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.sessionToolStripMenuItem,
             this.settingsToolStripMenuItem,
             this.outputToolStripMenuItem,
             this.aboutToolStripMenuItem});
-            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
-            this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(779, 24);
-            this.menuStrip1.TabIndex = 25;
-            this.menuStrip1.Text = "menuStrip1";
+            this.menuStrip.Location = new System.Drawing.Point(0, 0);
+            this.menuStrip.Name = "menuStrip";
+            this.menuStrip.Size = new System.Drawing.Size(779, 24);
+            this.menuStrip.TabIndex = 25;
+            this.menuStrip.Text = "menuStrip1";
             // 
             // sessionToolStripMenuItem
             // 
@@ -267,14 +268,14 @@
             // loadSessionToolStripMenuItem
             // 
             this.loadSessionToolStripMenuItem.Name = "loadSessionToolStripMenuItem";
-            this.loadSessionToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.loadSessionToolStripMenuItem.Size = new System.Drawing.Size(142, 22);
             this.loadSessionToolStripMenuItem.Text = "Load Session";
             this.loadSessionToolStripMenuItem.Click += new System.EventHandler(this.loadSessionToolStripMenuItem_Click);
             // 
             // saveSessionToolStripMenuItem
             // 
             this.saveSessionToolStripMenuItem.Name = "saveSessionToolStripMenuItem";
-            this.saveSessionToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.saveSessionToolStripMenuItem.Size = new System.Drawing.Size(142, 22);
             this.saveSessionToolStripMenuItem.Text = "Save Session";
             this.saveSessionToolStripMenuItem.Click += new System.EventHandler(this.saveSessionToolStripMenuItem_Click);
             // 
@@ -294,7 +295,7 @@
             this.dToolStripMenuItem,
             this.sendColorToolStripMenuItem});
             this.colorToolStripMenuItem.Name = "colorToolStripMenuItem";
-            this.colorToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.colorToolStripMenuItem.Size = new System.Drawing.Size(155, 22);
             this.colorToolStripMenuItem.Text = "Color";
             // 
             // dToolStripMenuItem
@@ -396,27 +397,28 @@
             this.fontToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.sizeToolStripMenuItem});
             this.fontToolStripMenuItem.Name = "fontToolStripMenuItem";
-            this.fontToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.fontToolStripMenuItem.Size = new System.Drawing.Size(155, 22);
             this.fontToolStripMenuItem.Text = "Monitor Font";
             // 
             // sizeToolStripMenuItem
             // 
             this.sizeToolStripMenuItem.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.sizeToolStripMenuItem.Name = "sizeToolStripMenuItem";
-            this.sizeToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.sizeToolStripMenuItem.Size = new System.Drawing.Size(94, 22);
             this.sizeToolStripMenuItem.Text = "Size";
             this.sizeToolStripMenuItem.Click += new System.EventHandler(this.sizeToolStripMenuItem_Click);
             // 
             // languageWIPToolStripMenuItem
             // 
             this.languageWIPToolStripMenuItem.Name = "languageWIPToolStripMenuItem";
-            this.languageWIPToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.languageWIPToolStripMenuItem.Size = new System.Drawing.Size(155, 22);
             this.languageWIPToolStripMenuItem.Text = "Language(WIP)";
             // 
             // outputToolStripMenuItem
             // 
             this.outputToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.clearOutputWindowToolStripMenuItem});
+            this.clearOutputWindowToolStripMenuItem,
+            this.showGraphToolStripMenuItem});
             this.outputToolStripMenuItem.Name = "outputToolStripMenuItem";
             this.outputToolStripMenuItem.Size = new System.Drawing.Size(57, 20);
             this.outputToolStripMenuItem.Text = "Output";
@@ -427,6 +429,28 @@
             this.clearOutputWindowToolStripMenuItem.Size = new System.Drawing.Size(189, 22);
             this.clearOutputWindowToolStripMenuItem.Text = "Clear Output Window";
             this.clearOutputWindowToolStripMenuItem.Click += new System.EventHandler(this.clearOutputWindowToolStripMenuItem_Click);
+            // 
+            // showGraphToolStripMenuItem
+            // 
+            this.showGraphToolStripMenuItem.Name = "showGraphToolStripMenuItem";
+            this.showGraphToolStripMenuItem.Size = new System.Drawing.Size(189, 22);
+            this.showGraphToolStripMenuItem.Text = "Open Graph Window";
+            this.showGraphToolStripMenuItem.Click += new System.EventHandler(this.showGraphToolStripMenuItem_Click);
+            // 
+            // aboutToolStripMenuItem
+            // 
+            this.aboutToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.creditsToolStripMenuItem});
+            this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
+            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(52, 20);
+            this.aboutToolStripMenuItem.Text = "About";
+            // 
+            // creditsToolStripMenuItem
+            // 
+            this.creditsToolStripMenuItem.Name = "creditsToolStripMenuItem";
+            this.creditsToolStripMenuItem.Size = new System.Drawing.Size(111, 22);
+            this.creditsToolStripMenuItem.Text = "Credits";
+            this.creditsToolStripMenuItem.Click += new System.EventHandler(this.creditsToolStripMenuItem_Click);
             // 
             // StringRadioButton
             // 
@@ -495,24 +519,9 @@
             this.LoopButton.UseVisualStyleBackColor = true;
             this.LoopButton.Click += new System.EventHandler(this.LoopButton_Click);
             // 
-            // openFileDialog1
+            // openFileDialog
             // 
-            this.openFileDialog1.FileName = "openFileDialog1";
-            // 
-            // aboutToolStripMenuItem
-            // 
-            this.aboutToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.creditsToolStripMenuItem});
-            this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
-            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(52, 20);
-            this.aboutToolStripMenuItem.Text = "About";
-            // 
-            // creditsToolStripMenuItem
-            // 
-            this.creditsToolStripMenuItem.Name = "creditsToolStripMenuItem";
-            this.creditsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.creditsToolStripMenuItem.Text = "Credits";
-            this.creditsToolStripMenuItem.Click += new System.EventHandler(this.creditsToolStripMenuItem_Click);
+            this.openFileDialog.FileName = "openFileDialog1";
             // 
             // MainForm
             // 
@@ -541,14 +550,14 @@
             this.Controls.Add(this.SendBtn);
             this.Controls.Add(this.CommandString);
             this.Controls.Add(this.SerialOutput);
-            this.Controls.Add(this.menuStrip1);
+            this.Controls.Add(this.menuStrip);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.MainMenuStrip = this.menuStrip1;
+            this.MainMenuStrip = this.menuStrip;
             this.Name = "MainForm";
             this.Text = "Serial Port Monitor by WindowsKonon1337";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Form1_FormClosed);
-            this.menuStrip1.ResumeLayout(false);
-            this.menuStrip1.PerformLayout();
+            this.menuStrip.ResumeLayout(false);
+            this.menuStrip.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.LoopNumeric)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -556,7 +565,6 @@
         }
 
         #endregion
-        private System.IO.Ports.SerialPort serialPort1;
         private System.Windows.Forms.RichTextBox SerialOutput;
         private System.Windows.Forms.TextBox CommandString;
         private System.Windows.Forms.Button SendBtn;
@@ -573,7 +581,7 @@
         private System.Windows.Forms.ComboBox DataBitsBox;
         private System.Windows.Forms.ComboBox StopBitsBox;
         private System.Windows.Forms.CheckBox ShowSentCommCheckBox;
-        private System.Windows.Forms.MenuStrip menuStrip1;
+        private System.Windows.Forms.MenuStrip menuStrip;
         private System.Windows.Forms.ToolStripMenuItem settingsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem colorToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem languageWIPToolStripMenuItem;
@@ -589,7 +597,7 @@
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem8;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem9;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem10;
-        private System.Windows.Forms.SaveFileDialog saveFileDialog1;
+        private System.Windows.Forms.SaveFileDialog saveFileDialog;
         private System.Windows.Forms.RadioButton StringRadioButton;
         private System.Windows.Forms.RadioButton HexRadioButton;
         private System.Windows.Forms.Label label7;
@@ -601,11 +609,13 @@
         private System.Windows.Forms.ToolStripMenuItem sessionToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem loadSessionToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem saveSessionToolStripMenuItem;
-        private System.Windows.Forms.OpenFileDialog openFileDialog1;
+        private System.Windows.Forms.OpenFileDialog openFileDialog;
         private System.Windows.Forms.ToolStripMenuItem fontToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem sizeToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem creditsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem showGraphToolStripMenuItem;
+        internal System.IO.Ports.SerialPort serialPort;
     }
 }
 
