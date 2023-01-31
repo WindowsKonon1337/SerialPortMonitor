@@ -81,6 +81,8 @@
             this.label8 = new System.Windows.Forms.Label();
             this.LoopButton = new System.Windows.Forms.Button();
             this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
+            this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.graphicsWindowToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.LoopNumeric)).BeginInit();
             this.SuspendLayout();
@@ -249,6 +251,7 @@
             this.sessionToolStripMenuItem,
             this.settingsToolStripMenuItem,
             this.outputToolStripMenuItem,
+            this.helpToolStripMenuItem,
             this.aboutToolStripMenuItem});
             this.menuStrip.Location = new System.Drawing.Point(0, 0);
             this.menuStrip.Name = "menuStrip";
@@ -432,6 +435,7 @@
             // 
             // showGraphToolStripMenuItem
             // 
+            this.showGraphToolStripMenuItem.Enabled = false;
             this.showGraphToolStripMenuItem.Name = "showGraphToolStripMenuItem";
             this.showGraphToolStripMenuItem.Size = new System.Drawing.Size(189, 22);
             this.showGraphToolStripMenuItem.Text = "Open Graph Window";
@@ -448,7 +452,7 @@
             // creditsToolStripMenuItem
             // 
             this.creditsToolStripMenuItem.Name = "creditsToolStripMenuItem";
-            this.creditsToolStripMenuItem.Size = new System.Drawing.Size(111, 22);
+            this.creditsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.creditsToolStripMenuItem.Text = "Credits";
             this.creditsToolStripMenuItem.Click += new System.EventHandler(this.creditsToolStripMenuItem_Click);
             // 
@@ -522,6 +526,21 @@
             // openFileDialog
             // 
             this.openFileDialog.FileName = "openFileDialog1";
+            // 
+            // helpToolStripMenuItem
+            // 
+            this.helpToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.graphicsWindowToolStripMenuItem});
+            this.helpToolStripMenuItem.Name = "helpToolStripMenuItem";
+            this.helpToolStripMenuItem.Size = new System.Drawing.Size(42, 20);
+            this.helpToolStripMenuItem.Text = "help";
+            // 
+            // graphicsWindowToolStripMenuItem
+            // 
+            this.graphicsWindowToolStripMenuItem.Name = "graphicsWindowToolStripMenuItem";
+            this.graphicsWindowToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.graphicsWindowToolStripMenuItem.Text = "Graph Window";
+            this.graphicsWindowToolStripMenuItem.Click += new System.EventHandler(this.graphicsWindowToolStripMenuItem_Click);
             // 
             // MainForm
             // 
@@ -616,6 +635,8 @@
         private System.Windows.Forms.ToolStripMenuItem creditsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem showGraphToolStripMenuItem;
         internal System.IO.Ports.SerialPort serialPort;
+        private System.Windows.Forms.ToolStripMenuItem helpToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem graphicsWindowToolStripMenuItem;
     }
 }
 

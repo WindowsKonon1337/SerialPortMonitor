@@ -129,7 +129,14 @@ namespace ASPM
 
         private void ProccesRecievedData(string data) // TODO: create logic for HEX-values
         {
-            SerialOutput.Text += data + "\n";
+            try
+            {
+                SerialOutput.Text += MainForm._mainForm._recievedData + "\n";
+            }
+            catch (Exception ex)
+            {
+
+            }
         }
 
         private void clearOutputWindowToolStripMenuItem_Click(object sender, EventArgs e)
@@ -154,6 +161,8 @@ namespace ASPM
 
                     CommandString.Enabled = true;
 
+                    showGraphToolStripMenuItem.Enabled = true;
+
                     _state.PortOpened = true;
 
                     OpenBtn.Text = "Close port";
@@ -170,6 +179,8 @@ namespace ASPM
                     SendBtn.Enabled = false;
 
                     CommandString.Enabled = false;
+
+                    showGraphToolStripMenuItem.Enabled = false;
 
                     _state.PortOpened = false;
 
@@ -409,6 +420,11 @@ namespace ASPM
             var form = new SerialChartForm(this);
 
             form.Show();
+        }
+
+        private void graphicsWindowToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("Parse data syntax: it must be an array of chars\n !first_value etc last_value!\n Plot window supports up to 10 splines");
         }
     }
 }
